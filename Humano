@@ -1,0 +1,50 @@
+
+import javax.swing.JOptionPane;
+
+public class Humano extends Jogador {
+
+    @Override
+    public void Jogar(Tabuleiro t) {
+        Tentativa(t);
+        System.out.println("Jogada Realizada.\n");
+        t.ExibeTabuleiro();
+    }
+
+    @Override
+    public void Tentativa(Tabuleiro t) {
+        int[] tentativa = new int[2];
+        t.ExibeTabuleiro();
+
+        tentativa[0] = Integer.parseInt(JOptionPane.showInputDialog("Linha da Jogada: "));
+        tentativa[1] = Integer.parseInt(JOptionPane.showInputDialog("Coluna da Jogada: "));
+
+        if (ChecarTentativa(t, tentativa[0], tentativa[1])) {
+            t.setValor('O', tentativa[0], tentativa[1]);
+        } else {
+            t.ExibeTabuleiro();
+            System.out.println("Insira valores validos.");
+
+            while (!ChecarTentativa(t, tentativa[0], tentativa[1])) {
+                tentativa[0] = Integer.parseInt(JOptionPane.showInputDialog("Linha da Jogada: "));
+                tentativa[1] = Integer.parseInt(JOptionPane.showInputDialog("Coluna da Jogada: "));
+            }
+            t.setValor('O', tentativa[0], tentativa[1]);
+        }
+    }
+    
+    
+    @Override
+    public boolean ChecarTentativa(Tabuleiro t, int i, int j){
+        if(i<3 && j<3){ 
+            if(t.vazio(i, j)){
+                return true;
+            }else{
+                System.out.println("Campo já preenchido.");
+                return false;
+            }
+        }else{
+            System.out.println("Linha ou coluna incorreta.");
+            return false;
+        }
+    }
+}
