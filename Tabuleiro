@@ -1,0 +1,110 @@
+
+public class Tabuleiro {
+
+    private char[][] tabela = new char[3][3];
+    private int quant = 0;
+    private int ganhador = 0; /* se ganhador=1 jogador O é vencedor, se ganhador= -1 Computador X venceu */
+
+    public Tabuleiro(){
+        tabela[0][0]=' ';   tabela[0][1]=' ';   tabela[0][2]=' ';
+        tabela[1][0]=' ';   tabela[1][1]=' ';   tabela[1][2]=' ';
+        tabela[2][0]=' ';   tabela[2][1]=' ';   tabela[2][2]=' ';
+        
+    }
+    public void setValor(char valor, int i, int j) {
+        tabela[i][j] = valor;
+        quant++;
+    }
+    
+    public void ExibeTabuleiro() {
+        System.out.println("  0   1   2 \n"
+                + "0 " + tabela[0][0] + " | " + tabela[0][1] + " | " + tabela[0][2] + " \n"
+                + "1 " + tabela[1][0] + " | " + tabela[1][1] + " | " + tabela[1][2] + " \n"
+                + "2 " + tabela[2][0] + " | " + tabela[2][1] + " | " + tabela[2][2] + " \n");
+    }
+
+    public boolean VerificarDiagonal() {
+        if ((tabela[0][0] == 'X' && tabela[1][1] == 'X' && tabela[2][2] == 'X')
+                || (tabela[0][2] == 'X' && tabela[1][1] == 'X' && tabela[2][0] == 'X')) {
+            ganhador = -1;
+            return true;
+        } else {
+            if ((tabela[0][0] == 'O' && tabela[1][1] == 'O' && tabela[2][2] == 'O')
+                    || (tabela[0][2] == 'O' && tabela[1][1] == 'O' && tabela[2][0] == 'O')) {
+                ganhador=1;
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    public boolean vazio(int i, int j){
+        if(tabela[i][j]==' '){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean VerificarLinha() {
+        if ((tabela[0][0] == 'X' && tabela[0][1] == 'X' && tabela[0][2] == 'X')
+                || (tabela[1][0] == 'X' && tabela[1][1] == 'X' && tabela[1][2] == 'X')
+                || (tabela[2][0] == 'X' && tabela[2][1] == 'X' && tabela[2][2] == 'X')) {
+            ganhador=-1;
+            return true;
+        } else {
+            if((tabela[0][0] == 'O' && tabela[0][1] == 'O' && tabela[0][2] == 'O')
+                || (tabela[1][0] == 'O' && tabela[1][1] == 'O' && tabela[1][2] == 'O')
+                || (tabela[2][0] == 'O' && tabela[2][1] == 'O' && tabela[2][2] == 'O')){
+                ganhador=1;
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public boolean VerificarColuna() {
+        if ((tabela[0][0] == 'X' && tabela[1][0] == 'X' && tabela[2][0] == 'X')
+                || (tabela[0][1] == 'X' && tabela[1][1] == 'X' && tabela[2][1] == 'X')
+                || (tabela[0][2] == 'X' && tabela[1][2] == 'X' && tabela[2][2] == 'X')) {
+           
+            ganhador=-1;
+            return true;
+        } else {
+            if((tabela[0][0] == 'O' && tabela[1][0] == 'O' && tabela[2][0] == 'O')
+                || (tabela[0][1] == 'O' && tabela[1][1] == 'O' && tabela[2][1] == 'O')
+                || (tabela[0][2] == 'O' && tabela[1][2] == 'O' && tabela[2][2] == 'O')){
+                ganhador=1;
+                return true;
+            }else{
+            return false;}
+        }
+    }
+
+    public boolean Ganhou() {
+        if (!VerificarColuna() && !VerificarDiagonal() && !VerificarLinha()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public int getQuant() {
+        return quant;
+    }
+
+    public void Resultado() {
+        if (Ganhou()) {
+            if (ganhador==1) {
+                System.out.println("Jogador Humano Ganhou!");
+            }else{
+                if(ganhador==-1){
+                    System.out.println("Computador Venceu!");
+                }
+            }
+        }else{
+            System.out.println("Empate!");
+        }
+    }
+}
