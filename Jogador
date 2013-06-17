@@ -1,0 +1,6 @@
+
+public abstract class Jogador {
+    public abstract void Jogar(Tabuleiro t);
+    public abstract boolean ChecarTentativa(Tabuleiro t, int i, int j);
+    public abstract void Tentativa(Tabuleiro t);
+}
