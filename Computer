@@ -1,0 +1,40 @@
+
+public class Computer extends Jogador {
+
+    @Override
+    public void Jogar(Tabuleiro t) {
+        Tentativa(t);
+        System.out.println("Jogada do computador realizada!");
+    }
+
+    @Override
+    public void Tentativa(Tabuleiro t) {
+        int[] tentativa = new int[2];
+
+        tentativa[0] = 1 + (int) (Math.random() * 3);
+        tentativa[1] = 1 + (int) (Math.random() * 3);
+
+        if (ChecarTentativa(t, tentativa[0], tentativa[1])) {
+            t.setValor('X', tentativa[0], tentativa[1]);
+        } else {
+            while (!ChecarTentativa(t, tentativa[0], tentativa[1])) {
+                tentativa[0] = 1 + (int) (Math.random() * 3);
+                tentativa[1] = 1 + (int) (Math.random() * 3);
+            }
+            t.setValor('X', tentativa[0], tentativa[1]);
+        }
+    }
+
+    @Override
+    public boolean ChecarTentativa(Tabuleiro t, int i, int j) {
+        if (i < 3 && j < 3) {
+            if (t.vazio(i, j)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+}
