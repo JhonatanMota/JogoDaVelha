@@ -11,15 +11,15 @@ public class Computer extends Jogador {
     public void Tentativa(Tabuleiro t) {
         int[] tentativa = new int[2];
 
-        tentativa[0] = 1 + (int) (Math.random() * 3);
-        tentativa[1] = 1 + (int) (Math.random() * 3);
+        tentativa[0] = 0 + (int) (Math.random() * 3);
+        tentativa[1] = 0 + (int) (Math.random() * 3);
 
         if (ChecarTentativa(t, tentativa[0], tentativa[1])) {
             t.setValor('X', tentativa[0], tentativa[1]);
         } else {
             while (!ChecarTentativa(t, tentativa[0], tentativa[1])) {
-                tentativa[0] = 1 + (int) (Math.random() * 3);
-                tentativa[1] = 1 + (int) (Math.random() * 3);
+                tentativa[0] = 0 + (int) (Math.random() * 3);
+                tentativa[1] = 0 + (int) (Math.random() * 3);
             }
             t.setValor('X', tentativa[0], tentativa[1]);
         }
