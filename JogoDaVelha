@@ -1,27 +1,69 @@
 
+import javax.swing.JOptionPane;
+
 public class JogoDaVelha {
-    public static Tabuleiro t= new Tabuleiro();
-    public static int vez=1;
-    public static Jogador j=null;
+
+    public static Tabuleiro t = new Tabuleiro();
+    public static int vez = 1;
+    public static Humano j =new Humano();
+    public static Computer jo= new Computer();
+    public static int qt=0;
     
     public static void main(String[] args) {
-        while(!t.Ganhou()&&t.getQuant()!=9){
-            Rodada();
-        }
-        t.Resultado();
-    }
-    
-    public static void Rodada(){
-        if(vez==1){
-            j= new Humano();
-            j.Jogar(t);
-            vez=2;
-        }else{
-            if(vez==2){
-                j=new Computer();
-                j.Jogar(t);
-                vez=1;
+        int[] tentativa = new int[2];
+        t.ExibeTabuleiro();
+
+        tentativa[0] = Integer.parseInt(JOptionPane.showInputDialog("Linha da Jogada: "));
+        tentativa[1] = Integer.parseInt(JOptionPane.showInputDialog("Coluna da Jogada: "));
+
+        if (ChecarTentativa(t, tentativa[0], tentativa[1])) {
+            t.setValor('O', tentativa[0], tentativa[1]);
+        } else {
+            t.ExibeTabuleiro();
+            System.out.println("Insira valores validos.");
+
+            while (!ChecarTentativa(t, tentativa[0], tentativa[1])) {
+                tentativa[0] = Integer.parseInt(JOptionPane.showInputDialog("Linha da Jogada: "));
+                tentativa[1] = Integer.parseInt(JOptionPane.showInputDialog("Coluna da Jogada: "));
             }
+            t.setValor('O', tentativa[0], tentativa[1]);
+        }
+        vez = 2;
+        qt++;
+        Rodada();
+    }
+    public static void Rodada() {
+        if (t.Ganhou() || qt == 9) {
+            t.ExibeTabuleiro();
+            t.Resultado();
+        } else {
+            if (vez == 1) {
+               
+                j.Jogar(t);
+                qt++;
+                vez=2;
+                Rodada();
+            } else {
+                
+                jo.Jogar(t);
+                qt++;
+                vez=1;
+                Rodada();
+            }
+        }
+    }
+
+    public static boolean ChecarTentativa(Tabuleiro t, int i, int j) {
+        if (i < 3 && j < 3) {
+            if (t.vazio(i, j)) {
+                return true;
+            } else {
+                System.out.println("Campo já preenchido.");
+                return false;
+            }
+        } else {
+            System.out.println("Linha ou coluna incorreta.");
+            return false;
         }
     }
 }
