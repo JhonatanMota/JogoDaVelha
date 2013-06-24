@@ -1,43 +1,6 @@
-public class Humano extends Jogador {
 
-    @Override
-    public void Jogar(Tabuleiro t) {
-        Tentativa(t);
-        System.out.println("Jogada Realizada.\n");
-        t.ExibeTabuleiro();
-    }
-
-    @Override
-    public void Tentativa(Tabuleiro t) {
-        int[] tentativa = new int[2];
-        t.ExibeTabuleiro();
-
-        tentativa[0] = 0 + (int) (Math.random() * 3);
-        tentativa[1] = 0 + (int) (Math.random() * 3);
-
-        if (ChecarTentativa(t, tentativa[0], tentativa[1])) {
-            t.setValor('O', tentativa[0], tentativa[1]);
-        } else {
-            t.ExibeTabuleiro();
-
-            while (!ChecarTentativa(t, tentativa[0], tentativa[1])) {
-                tentativa[0] = 0 + (int) (Math.random() * 3);
-                tentativa[1] = 0 + (int) (Math.random() * 3);
-            }
-            t.setValor('O', tentativa[0], tentativa[1]);
-        }
-    }
-
-    @Override
-    public boolean ChecarTentativa(Tabuleiro t, int i, int j) {
-        if (i < 3 && j < 3) {
-            if (t.vazio(i, j)) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
+public abstract class Jogador {
+    public abstract void Jogar(Tabuleiro t);
+    public abstract boolean ChecarTentativa(Tabuleiro t, int i, int j);
+    public abstract void Tentativa(Tabuleiro t);
 }
